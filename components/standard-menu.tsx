@@ -12,14 +12,6 @@ export const StandardMenu = ({ width }: NavbarProps) => {
         alignItems="space-between"
         gap="1rem"
       ></Flex>
-      <Link href="/dashboard">
-        <Button variant="ghost" bg="none">
-          Dashboard
-        </Button>
-      </Link>
-      {/* <Link href="/coming-soon">
-        <Button variant="base">Create Event</Button>
-      </Link> */}
     </Flex>
   );
 };

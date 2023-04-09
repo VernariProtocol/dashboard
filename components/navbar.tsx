@@ -14,12 +14,12 @@ interface NavBarProps {
 export const NavBar: FC<NavBarProps> = ({ width, paddingX }) => {
   return (
     <Flex
-      justifyContent="space-around"
+      justifyContent="space-between"
       alignItems="center"
       height={["8vh", "10vh", "12vh"]}
       bg="white"
       boxShadow="Dark lg"
-      padding={"15px"}
+      padding={paddingX}
     >
       <Flex alignItems="center" justifyContent="space-between" width="100%">
         <Heading color="black" size="lg" letterSpacing={2}>
@@ -27,8 +27,9 @@ export const NavBar: FC<NavBarProps> = ({ width, paddingX }) => {
             Vernari Protocol
           </Link>
         </Heading>
-        <Wallet width={width} />
       </Flex>
+      <Wallet />
+
       {<StandardMenu width={width} />}
     </Flex>
   );

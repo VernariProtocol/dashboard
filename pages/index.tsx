@@ -4,6 +4,7 @@ import { useIsMounted } from "../hooks/app-hooks";
 import { Layout } from "../components/layout";
 import { StoreOrders } from "@/components/store-orders";
 import { CardGrid } from "@/components/card-grid";
+import { Stats } from "@/components/stats";
 import {
   useAccount,
   useDisconnect,
@@ -12,6 +13,17 @@ import {
   useSwitchNetwork,
   useNetwork,
 } from "wagmi";
+import {
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  StatArrow,
+  StatGroup,
+  Flex,
+  Box,
+  Container,
+} from "@chakra-ui/react";
 
 export default function Home() {
   const { address } = useAccount();
@@ -21,6 +33,7 @@ export default function Home() {
     <Layout title="Vernari Protocol">
       {isMounted() && address ? (
         <>
+          <Stats />
           <CardGrid />
         </>
       ) : (

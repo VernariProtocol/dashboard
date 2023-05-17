@@ -1,10 +1,11 @@
-import react, { useEffect } from "react";
+import react, { useEffect, useState } from "react";
 import { useConnect } from "wagmi";
 import { useIsMounted } from "../hooks/app-hooks";
 import { Layout } from "../components/layout";
 import { StoreOrders } from "@/components/store-orders";
 import { CardGrid } from "@/components/card-grid";
 import { Stats } from "@/components/stats";
+import LandingPage from "@/components/landing-page";
 import {
   useAccount,
   useDisconnect,
@@ -26,18 +27,31 @@ import {
 } from "@chakra-ui/react";
 
 export default function Home() {
+  const [showLandingPage, setShowLandingPage] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const { address } = useAccount();
-  const isMounted = useIsMounted();
+
+  useEffect(() => {
+    if (address) {
+      setIsReady(true);
+      setShowLandingPage(false);
+    } else {
+      setIsReady(false);
+      setShowLandingPage(true);
+    }
+  }, [address]);
 
   return (
-    <Layout title="Vernari Protocol">
-      {isMounted() && address ? (
+    <Layout title="Varnari Protocol">
+      {isReady ? (
         <>
           <Stats />
           <CardGrid />
         </>
+      ) : showLandingPage ? (
+        <LandingPage />
       ) : (
-        <div>Not connected</div>
+        <></>
       )}
     </Layout>
   );

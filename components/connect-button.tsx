@@ -13,14 +13,15 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { FC } from "react";
-import { goerli, useConnect, useAccount } from "wagmi";
+import { useConnect, useAccount } from "wagmi";
+import { polygonMumbai } from "wagmi/chains";
 
 export const ConnectButton: FC<ButtonProps> = (buttonProps) => {
   const { connector: activeConnector, isConnected } = useAccount();
 
   const { connect, error, connectors, isLoading, pendingConnector } =
     useConnect({
-      chainId: goerli.id,
+      chainId: polygonMumbai.id,
     });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { children } = buttonProps;
@@ -31,7 +32,7 @@ export const ConnectButton: FC<ButtonProps> = (buttonProps) => {
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent bg="rgb(123, 63, 228)">
+        <ModalContent bg="#1a2035">
           <ModalHeader color="white">Connect</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

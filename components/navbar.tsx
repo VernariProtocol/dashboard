@@ -3,7 +3,7 @@
 // import { MobileMenu } from "./mobile-menu";
 import { StandardMenu } from "./standard-menu";
 import { Wallet } from "./wallet";
-import { Flex, Link, Heading } from "@chakra-ui/react";
+import { Flex, Link, Heading, Box } from "@chakra-ui/react";
 import { FC } from "react";
 
 interface NavBarProps {
@@ -23,6 +23,13 @@ export const NavBar: FC<NavBarProps> = ({ width, paddingX }) => {
     >
       <Flex alignItems="center" justifyContent="space-between" width="100%">
         <Heading color="black" size="lg" letterSpacing={2}>
+          <Box
+            as="img"
+            src="/images/logo.png"
+            alt="Vernari Protocol"
+            width={50}
+            height={50}
+          />
           <Link style={{ textDecoration: "none" }} href="/">
             Vernari Protocol
           </Link>

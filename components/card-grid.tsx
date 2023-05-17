@@ -14,7 +14,7 @@ import {
 
 export const CardGrid: FC = () => {
   return (
-    <Flex>
+    <Flex justifyContent="space-around">
       <SimpleGrid spacing={10} flexWrap="wrap" display="flex">
         <Card>
           <CardHeader>

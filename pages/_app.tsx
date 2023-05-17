@@ -4,6 +4,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { theme } from "./styles/theme";
+import Fonts from "./styles/font";
 import {
   mainnet,
   localhost,
@@ -114,6 +115,7 @@ export const client = createClient({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={client}>
+      <Fonts />
       <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>

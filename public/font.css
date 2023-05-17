@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "Norse";
+  src: url("Norse.otf") format("otf");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Norsebold";
+  src: url("Norsebold.otf") format("otf");
+  font-weight: normal;
+  font-style: normal;
+}

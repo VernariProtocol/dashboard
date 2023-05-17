@@ -21,18 +21,18 @@ interface LayoutProps {
 export const Layout: FC<LayoutProps> = ({
   children,
   canToggleHeader = false,
-  title = "This is the default title",
+  title = "Vernari Protocol",
 }) => {
   const [toggleHeader, setToggleHeader] = useState(true);
 
   const layoutPaddingX = ["0.75rem", "1rem", "2rem", "5rem"];
   const [width, setWidth] = useState(900);
 
-  if (typeof window !== "undefined") {
-    useEffect(() => {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
       setWidth(window.innerWidth);
-    }, []);
-  }
+    }
+  }, []);
 
   return (
     <>
@@ -43,7 +43,8 @@ export const Layout: FC<LayoutProps> = ({
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Container maxWidth="1200px">
+
+      <Container maxWidth="full" background="#1a2035">
         <Flex
           py={4}
           justifyContent="flex-end"

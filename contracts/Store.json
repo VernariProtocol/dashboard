@@ -96,6 +96,13 @@
     "type": "event"
   },
   {
+    "inputs": [],
+    "name": "addFundsToStrategy",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "bytes32",
@@ -106,6 +113,16 @@
         "internalType": "uint256",
         "name": "amount",
         "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "gasToken",
+        "type": "bool"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenAsset",
+        "type": "address"
       }
     ],
     "name": "addOrder",
@@ -122,6 +139,19 @@
       }
     ],
     "name": "addWhiteListedAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "addWhitelistedToken",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -144,9 +174,41 @@
     "name": "getCompanyName",
     "outputs": [
       {
-        "internalType": "bytes",
+        "internalType": "string",
         "name": "",
-        "type": "bytes"
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "getLockedAssetTokenAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getLockedGasTokenAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -233,7 +295,39 @@
   },
   {
     "inputs": [],
-    "name": "getWithdrawableAmount",
+    "name": "getWhitelistedTokens",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "getWithdrawableAssetTokenAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getWithdrawableGasTokenAmount",
     "outputs": [
       {
         "internalType": "uint256",
@@ -319,6 +413,19 @@
       }
     ],
     "name": "removeWhiteListedAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "removeWhitelistedToken",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -445,7 +552,20 @@
   },
   {
     "inputs": [],
-    "name": "withdraw",
+    "name": "withdrawGasToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "withdrawTokenAsset",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -458,7 +578,25 @@
         "type": "uint256"
       }
     ],
-    "name": "withdrawVaultFunds",
+    "name": "withdrawVaultGasToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "withdrawVaultTokenAsset",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

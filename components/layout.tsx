@@ -1,4 +1,5 @@
 import { NavBar } from "./navbar";
+import { Footer } from "./footer";
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -65,6 +66,7 @@ export const Layout: FC<LayoutProps> = ({
         </Flex>
         {children}
       </Container>
+      <Footer />
     </>
   );
 };

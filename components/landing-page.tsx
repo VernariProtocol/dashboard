@@ -4,7 +4,7 @@ import Hero from "./landing-page/hero";
 
 export default function LandingPage() {
   return (
-    <Container maxW={"5xl"}>
+    <Container maxW={"5xl"} marginTop={"-50"}>
       <Hero />
       <GridListWith />
     </Container>

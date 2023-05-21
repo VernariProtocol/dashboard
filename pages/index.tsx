@@ -1,30 +1,8 @@
-import react, { useEffect, useState } from "react";
-import { useConnect } from "wagmi";
-import { useIsMounted } from "../hooks/app-hooks";
+import { useEffect, useState } from "react";
 import { Layout } from "../components/layout";
-import { StoreOrders } from "@/components/store-orders";
-import { CardGrid } from "@/components/card-grid";
-import { Stats } from "@/components/stats";
+import { Dashboard } from "../components/dashboard";
 import LandingPage from "@/components/landing-page";
-import {
-  useAccount,
-  useDisconnect,
-  useEnsAvatar,
-  useEnsName,
-  useSwitchNetwork,
-  useNetwork,
-} from "wagmi";
-import {
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  StatArrow,
-  StatGroup,
-  Flex,
-  Box,
-  Container,
-} from "@chakra-ui/react";
+import { useAccount } from "wagmi";
 
 export default function Home() {
   const [showLandingPage, setShowLandingPage] = useState(false);
@@ -45,8 +23,7 @@ export default function Home() {
     <Layout title="Varnari Protocol">
       {isReady ? (
         <>
-          <Stats />
-          <CardGrid />
+          <Dashboard />
         </>
       ) : showLandingPage ? (
         <LandingPage />

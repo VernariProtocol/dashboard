@@ -75,11 +75,13 @@ export interface StoreInterface extends utils.Interface {
     "getLockedAssetTokenAmount(address)": FunctionFragment;
     "getLockedGasTokenAmount()": FunctionFragment;
     "getOrder(bytes32)": FunctionFragment;
+    "getOrders()": FunctionFragment;
     "getSubscriptionId()": FunctionFragment;
     "getWhitelistedTokens()": FunctionFragment;
     "getWithdrawableAssetTokenAmount(address)": FunctionFragment;
     "getWithdrawableGasTokenAmount()": FunctionFragment;
     "initialize(address,address,bytes,uint64,uint96)": FunctionFragment;
+    "orderList(uint256)": FunctionFragment;
     "owner()": FunctionFragment;
     "pause()": FunctionFragment;
     "paused()": FunctionFragment;
@@ -111,11 +113,13 @@ export interface StoreInterface extends utils.Interface {
       | "getLockedAssetTokenAmount"
       | "getLockedGasTokenAmount"
       | "getOrder"
+      | "getOrders"
       | "getSubscriptionId"
       | "getWhitelistedTokens"
       | "getWithdrawableAssetTokenAmount"
       | "getWithdrawableGasTokenAmount"
       | "initialize"
+      | "orderList"
       | "owner"
       | "pause"
       | "paused"
@@ -177,6 +181,7 @@ export interface StoreInterface extends utils.Interface {
     functionFragment: "getOrder",
     values: [PromiseOrValue<BytesLike>]
   ): string;
+  encodeFunctionData(functionFragment: "getOrders", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getSubscriptionId",
     values?: undefined
@@ -202,6 +207,10 @@ export interface StoreInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>
     ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "orderList",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(functionFragment: "pause", values?: undefined): string;
@@ -295,6 +304,7 @@ export interface StoreInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getOrder", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getOrders", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getSubscriptionId",
     data: BytesLike
@@ -312,6 +322,7 @@ export interface StoreInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "orderList", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
@@ -504,6 +515,8 @@ export interface Store extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[IStore.OrderStructOutput]>;
 
+    getOrders(overrides?: CallOverrides): Promise<[IStore.OrderStructOutput[]]>;
+
     getSubscriptionId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getWhitelistedTokens(overrides?: CallOverrides): Promise<[string[]]>;
@@ -525,6 +538,31 @@ export interface Store extends BaseContract {
       automationInterval: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    orderList(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        string,
+        string,
+        string,
+        number,
+        BigNumber,
+        boolean,
+        BigNumber,
+        BigNumber
+      ] & {
+        Id: string;
+        trackingNumber: string;
+        company: string;
+        status: number;
+        lastUpdate: BigNumber;
+        active: boolean;
+        lastAutomationCheck: BigNumber;
+        value: BigNumber;
+      }
+    >;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
@@ -643,6 +681,8 @@ export interface Store extends BaseContract {
     overrides?: CallOverrides
   ): Promise<IStore.OrderStructOutput>;
 
+  getOrders(overrides?: CallOverrides): Promise<IStore.OrderStructOutput[]>;
+
   getSubscriptionId(overrides?: CallOverrides): Promise<BigNumber>;
 
   getWhitelistedTokens(overrides?: CallOverrides): Promise<string[]>;
@@ -662,6 +702,31 @@ export interface Store extends BaseContract {
     automationInterval: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
+
+  orderList(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<
+    [
+      string,
+      string,
+      string,
+      number,
+      BigNumber,
+      boolean,
+      BigNumber,
+      BigNumber
+    ] & {
+      Id: string;
+      trackingNumber: string;
+      company: string;
+      status: number;
+      lastUpdate: BigNumber;
+      active: boolean;
+      lastAutomationCheck: BigNumber;
+      value: BigNumber;
+    }
+  >;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
@@ -778,6 +843,8 @@ export interface Store extends BaseContract {
       overrides?: CallOverrides
     ): Promise<IStore.OrderStructOutput>;
 
+    getOrders(overrides?: CallOverrides): Promise<IStore.OrderStructOutput[]>;
+
     getSubscriptionId(overrides?: CallOverrides): Promise<BigNumber>;
 
     getWhitelistedTokens(overrides?: CallOverrides): Promise<string[]>;
@@ -799,6 +866,31 @@ export interface Store extends BaseContract {
       automationInterval: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    orderList(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        string,
+        string,
+        string,
+        number,
+        BigNumber,
+        boolean,
+        BigNumber,
+        BigNumber
+      ] & {
+        Id: string;
+        trackingNumber: string;
+        company: string;
+        status: number;
+        lastUpdate: BigNumber;
+        active: boolean;
+        lastAutomationCheck: BigNumber;
+        value: BigNumber;
+      }
+    >;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
@@ -948,6 +1040,8 @@ export interface Store extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getOrders(overrides?: CallOverrides): Promise<BigNumber>;
+
     getSubscriptionId(overrides?: CallOverrides): Promise<BigNumber>;
 
     getWhitelistedTokens(overrides?: CallOverrides): Promise<BigNumber>;
@@ -968,6 +1062,11 @@ export interface Store extends BaseContract {
       subId: PromiseOrValue<BigNumberish>,
       automationInterval: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    orderList(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1092,6 +1191,8 @@ export interface Store extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getOrders(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     getSubscriptionId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getWhitelistedTokens(
@@ -1114,6 +1215,11 @@ export interface Store extends BaseContract {
       subId: PromiseOrValue<BigNumberish>,
       automationInterval: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    orderList(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;

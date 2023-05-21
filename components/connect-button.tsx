@@ -15,6 +15,7 @@ import {
 import { FC } from "react";
 import { useConnect, useAccount } from "wagmi";
 import { polygonMumbai } from "wagmi/chains";
+import { AddIcon } from "@chakra-ui/icons";
 
 export const ConnectButton: FC<ButtonProps> = (buttonProps) => {
   const { connector: activeConnector, isConnected } = useAccount();
@@ -27,7 +28,23 @@ export const ConnectButton: FC<ButtonProps> = (buttonProps) => {
   const { children } = buttonProps;
   return (
     <>
-      <Button onClick={onOpen} {...buttonProps} variant="base">
+      <Button
+        leftIcon={<AddIcon />}
+        boxShadow={"0 5px 20px 0px rgb(213 109 33 / 43%)"}
+        _hover={{
+          bg: "blue.500",
+        }}
+        _focus={{
+          bg: "blue.500",
+        }}
+        bg={"blue.400"}
+        color={"white"}
+        size={"sm"}
+        mr={4}
+        onClick={onOpen}
+        {...buttonProps}
+        variant="base"
+      >
         {children}
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>

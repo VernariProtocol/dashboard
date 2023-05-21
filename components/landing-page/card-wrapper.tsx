@@ -63,7 +63,7 @@ export default function GridListWith() {
     <Box p={4}>
       <Stack spacing={4} as={Container} maxW={"3xl"} textAlign={"center"}>
         <Heading fontSize={{ base: "2xl", sm: "4xl" }} fontWeight={"bold"}>
-          Integrate into your existing website
+          Integrate into your existing e-commerce platform
         </Heading>
         <Text color={"gray.600"} fontSize={{ base: "sm", sm: "lg" }}>
           Vernari allows your users to have peace of mind when ordering from

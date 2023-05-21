@@ -12,25 +12,31 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 
-export const Stats: FC = () => {
+interface StatProps {
+  orders: number;
+  autoBalance: string;
+  funcBalance: string;
+}
+
+export const Stats: FC<StatProps> = ({ orders, autoBalance, funcBalance }) => {
   return (
     <Container maxW={"5xl"}>
       <Flex>
         <Stat>
           <StatLabel>Total Orders</StatLabel>
-          <StatNumber>3</StatNumber>
+          <StatNumber>{orders}</StatNumber>
           {/* <StatHelpText>Feb 12 - Feb 28</StatHelpText> */}
         </Stat>
         <Spacer />
         <Stat>
           <StatLabel>Automation Balance</StatLabel>
-          <StatNumber>3</StatNumber>
+          <StatNumber>{autoBalance}</StatNumber>
           <StatHelpText>LINK</StatHelpText>
         </Stat>
         <Spacer />
         <Stat>
           <StatLabel>Function Balance</StatLabel>
-          <StatNumber>3</StatNumber>
+          <StatNumber>{funcBalance}</StatNumber>
           <StatHelpText>LINK</StatHelpText>
         </Stat>
       </Flex>

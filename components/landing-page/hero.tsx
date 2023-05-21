@@ -14,11 +14,18 @@ import { ConnectButton } from "../connect-button";
 export default function Hero() {
   return (
     <Container maxW={"5xl"}>
+      <Flex justifyContent={"center"}>
+        <Illustration
+          height={{ sm: "24rem", lg: "28rem" }}
+          mt={{ base: 12, sm: 16 }}
+        />
+      </Flex>
       <Stack
         textAlign={"center"}
         align={"center"}
         spacing={{ base: 8, md: 10 }}
         py={{ base: 20, md: 28 }}
+        marginTop={"-120"}
       >
         <Heading
           fontWeight={600}
@@ -28,7 +35,7 @@ export default function Hero() {
         >
           Web3 E-Commerce{" "}
           <Text as={"span"} color={"#e99862"} fontFamily={"Norse"}>
-            made safe
+            made secure
           </Text>
         </Heading>
         <Text color={"gray.500"} maxW={"3xl"}>
@@ -41,12 +48,6 @@ export default function Hero() {
             Learn more
           </Button>
         </Stack>
-        <Flex justifyContent={"center"}>
-          <Illustration
-            height={{ sm: "24rem", lg: "28rem" }}
-            mt={{ base: 12, sm: 16 }}
-          />
-        </Flex>
       </Stack>
     </Container>
   );

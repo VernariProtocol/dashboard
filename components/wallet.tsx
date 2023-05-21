@@ -53,7 +53,7 @@ export const Wallet: FC = () => {
             {ensName || shortenAddress(address)}
           </Text>
           <Avatar fontWeight="700" size="sm" src={ensAvatar || undefined}>
-            <AvatarBadge boxSize="1.25em" bg="green.500" />
+            <AvatarBadge boxSize="1.25em" bg="blue.500" />
           </Avatar>
           <TriangleDownIcon ml={3} mr={-1} w={3} color="gray.400" />
         </HStack>
@@ -81,7 +81,7 @@ export const Wallet: FC = () => {
                     variant="outline"
                     colorScheme="yellow"
                     ml={2}
-                    hidden={!isLoading || pendingChainId !== chain.id}
+                    hidden={!isLoading || pendingChainId !== chain?.id}
                   >
                     Loading...
                   </Badge>

@@ -4,10 +4,7 @@ import {
   StatLabel,
   StatNumber,
   StatHelpText,
-  StatArrow,
-  StatGroup,
   Flex,
-  Box,
   Container,
   Spacer,
 } from "@chakra-ui/react";
@@ -25,7 +22,6 @@ export const Stats: FC<StatProps> = ({ orders, autoBalance, funcBalance }) => {
         <Stat>
           <StatLabel>Open Orders</StatLabel>
           <StatNumber>{orders}</StatNumber>
-          {/* <StatHelpText>Feb 12 - Feb 28</StatHelpText> */}
         </Stat>
         <Spacer />
         <Stat>

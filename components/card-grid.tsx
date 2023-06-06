@@ -9,11 +9,9 @@ import {
   Text,
   Button,
   Link,
-  Flex,
   useColorModeValue,
   Center,
 } from "@chakra-ui/react";
-import { Card as Card1 } from "./settings/card";
 
 export const CardGrid: FC = () => {
   return (

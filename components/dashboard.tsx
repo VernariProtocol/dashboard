@@ -1,10 +1,8 @@
-import { FC, ReactNode, useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import { CardGrid } from "@/components/card-grid";
 import { Stats } from "@/components/stats";
-import { useContractRead, useNetwork, useAccount } from "wagmi";
+import { useAccount } from "wagmi";
 import {
-  addresses,
-  toEth,
   getSubscriptionId,
   getCompanyName,
   getStore,
@@ -23,7 +21,6 @@ export const Dashboard: FC = () => {
   const [subAmount, setSubAmount] = useState("0");
   const [automationAmount, setAutomationAmount] = useState("0");
   const { address } = useAccount();
-  const { chain } = useNetwork();
 
   useEffect(() => {
     const fetchData = async () => {

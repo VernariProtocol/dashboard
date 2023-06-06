@@ -13,7 +13,7 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import { useNetwork, useAccount, useProvider } from "wagmi";
+
 import { updatOrder } from "../../utils";
 
 interface StoreModalProps {
@@ -25,10 +25,6 @@ export const StoreModal: FC<StoreModalProps> = ({ id, storeAddress }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [shippingCompany, setShippingCompany] = useState("");
   const [tracking, setTracking] = useState("");
-  const { address } = useAccount();
-  const { chain } = useNetwork();
-
-  const handleUpdate = async () => {};
 
   return (
     <>

@@ -4,9 +4,6 @@ import {
   Center,
   Text,
   Stack,
-  List,
-  ListItem,
-  ListIcon,
   Button,
   useColorModeValue,
   Modal,
@@ -20,7 +17,6 @@ import {
   Progress,
   Input,
 } from "@chakra-ui/react";
-import { CheckIcon } from "@chakra-ui/icons";
 
 interface CardProps {
   name: string;

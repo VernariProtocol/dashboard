@@ -1,16 +1,5 @@
 import { FC } from "react";
-import {
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  StatArrow,
-  StatGroup,
-  Flex,
-  Box,
-  Container,
-  Spacer,
-} from "@chakra-ui/react";
+import { Flex, Container, Spacer } from "@chakra-ui/react";
 import { gasTokens, withdrawGasTokenFromVault } from "../../utils";
 import { VaultCard } from "./card";
 

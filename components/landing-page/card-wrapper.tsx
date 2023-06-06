@@ -10,22 +10,16 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ReactElement } from "react";
-import {
-  FcAbout,
-  FcAssistant,
-  FcCollaboration,
-  FcDonate,
-  FcManager,
-} from "react-icons/fc";
+import { FcBullish, FcEngineering } from "react-icons/fc";
+import { SiHiveBlockchain } from "react-icons/si";
 
 interface CardProps {
   heading: string;
   description: string;
   icon: ReactElement;
-  href: string;
 }
 
-const Card = ({ heading, description, icon, href }: CardProps) => {
+const Card = ({ heading, description, icon }: CardProps) => {
   return (
     <Box
       maxW={{ base: "full", md: "275px" }}
@@ -75,25 +69,22 @@ export default function GridListWith() {
         <Flex flexWrap="wrap" gridGap={6} justify="center">
           <Card
             heading={"Blockchain Verified"}
-            icon={<Icon as={FcAssistant} w={10} h={10} />}
+            icon={<Icon as={SiHiveBlockchain} w={10} h={10} />}
             description={
               "Secure user experience with blockchain verified transactions."
             }
-            href={"#"}
           />
           <Card
             heading={"Powered By Chainlink"}
-            icon={<Icon as={FcCollaboration} w={10} h={10} />}
+            icon={<Icon as={FcEngineering} w={10} h={10} />}
             description={
-              "Oracles are the bridge between the real world and the blockchain."
+              "Oracles that bridge between the real world and the blockchain."
             }
-            href={"#"}
           />
           <Card
             heading={"Earn Yield"}
-            icon={<Icon as={FcDonate} w={10} h={10} />}
+            icon={<Icon as={FcBullish} w={10} h={10} />}
             description={"Earn yield on your lockd revinue."}
-            href={"#"}
           />
         </Flex>
       </Container>

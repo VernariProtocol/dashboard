@@ -1,10 +1,9 @@
-import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { StandardMenu } from "./standard-menu";
 import { Wallet } from "./wallet";
 import {
   Box,
   Flex,
-  Avatar,
   HStack,
   Link,
   IconButton,

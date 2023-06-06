@@ -23,7 +23,7 @@ export const Stats: FC<StatProps> = ({ orders, autoBalance, funcBalance }) => {
     <Container maxW={"5xl"}>
       <Flex>
         <Stat>
-          <StatLabel>Total Orders</StatLabel>
+          <StatLabel>Open Orders</StatLabel>
           <StatNumber>{orders}</StatNumber>
           {/* <StatHelpText>Feb 12 - Feb 28</StatHelpText> */}
         </Stat>

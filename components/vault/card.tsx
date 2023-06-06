@@ -17,6 +17,8 @@ interface CardProps {
   gasToken: string;
   total: string;
   buttonAction: string;
+  action: (address: string, amount: string) => Promise<void>;
+  storeAddress?: string;
 }
 
 export const VaultCard: FC<CardProps> = ({
@@ -24,6 +26,8 @@ export const VaultCard: FC<CardProps> = ({
   gasToken,
   total,
   buttonAction,
+  action,
+  storeAddress,
 }) => {
   return (
     <Center py={100}>
@@ -71,6 +75,9 @@ export const VaultCard: FC<CardProps> = ({
           {/* </List> */}
           {buttonAction.length > 0 ? (
             <Button
+              onClick={async () => {
+                await action(storeAddress as string, total);
+              }}
               mt={10}
               w={"full"}
               bg={"blue.400"}

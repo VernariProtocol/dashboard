@@ -10,7 +10,6 @@ import {
   Td,
   TableCaption,
   TableContainer,
-  Button,
   Container,
   useToast,
 } from "@chakra-ui/react";
@@ -53,7 +52,7 @@ export const StoreOrders: FC = () => {
     abi: STORE_ABI,
     functionName: "getOrders",
     onSuccess: (data: []) => {
-      console.log("orders", data);
+      console.log(data);
       setOrders(data);
     },
   });
@@ -99,9 +98,9 @@ export const StoreOrders: FC = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
-  console.log(storeAddress);
+
   return (
-    <Container maxW={"5xl"} paddingBottom={300} paddingTop={10}>
+    <Container maxW={"5xl"} paddingBottom={400} paddingTop={20}>
       <TableContainer>
         <Table variant="simple">
           <TableCaption>Orders</TableCaption>
@@ -118,7 +117,7 @@ export const StoreOrders: FC = () => {
               return (
                 <Tr key={id}>
                   <Td>{order.Id}</Td>
-                  <Td>{toEth(order.value)}</Td>
+                  <Td>Ξ {toEth(order.value)}</Td>
                   <Td>{OrderStatus[order.status]}</Td>
                   <Td>
                     <StoreModal id={order.Id} storeAddress={storeAddress} />

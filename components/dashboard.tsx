@@ -2,103 +2,76 @@ import { FC, ReactNode, useState, useEffect } from "react";
 import { CardGrid } from "@/components/card-grid";
 import { Stats } from "@/components/stats";
 import { useContractRead, useNetwork, useAccount } from "wagmi";
-import { addresses, toEth } from "../utils";
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-  Button,
-  Container,
-  Heading,
-  Divider,
-} from "@chakra-ui/react";
-import { BigNumber, utils } from "ethers";
-interface SubIdRes {
-  _hex: string;
-  _isBigNumber: boolean;
-}
-
-interface FuncSub {
-  balance: SubIdRes;
-  consumers: string[];
-  owner: string;
-}
+  addresses,
+  toEth,
+  getSubscriptionId,
+  getCompanyName,
+  getStore,
+  getFunctionsBalance,
+  getStoreOrders,
+  getAutomationBalance,
+} from "../utils";
+import { Center, Spinner, Container, Heading, Divider } from "@chakra-ui/react";
 
 export const Dashboard: FC = () => {
   const [orders, setOrders] = useState(0);
   const [company, setCompany] = useState("");
   const [storeAddress, setStoreAddress] = useState("");
-  const [subId, setSubId] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [subId, setSubId] = useState<number | null>(null);
   const [subAmount, setSubAmount] = useState("0");
-  const STORE_ABI = require("../contracts/Store.json");
-  const FACTORY_ABI = require("../contracts/Factory.json");
-  const FUNCTIONS_ABI = require("../contracts/Functions.json");
+  const [automationAmount, setAutomationAmount] = useState("0");
   const { address } = useAccount();
   const { chain } = useNetwork();
-  const networkId = (chain?.id as number) || 80001;
-  const { data: proxy } = useContractRead({
-    address: addresses[networkId].factory as `0x${string}`,
-    abi: FACTORY_ABI,
-    functionName: "instances",
-    args: [address],
-  });
-  const { data: store } = useContractRead({
-    address: storeAddress as `0x${string}`,
-    abi: STORE_ABI,
-    functionName: "getCompanyName",
-    onSuccess: (data: string) => {
-      setCompany(data);
-    },
-  });
-  const { data: _subID } = useContractRead({
-    address: storeAddress as `0x${string}`,
-    abi: STORE_ABI,
-    functionName: "getSubscriptionId",
-    onSuccess: (data: SubIdRes) => {
-      setSubId(data?._hex);
-    },
-  });
-  const { data: _orders } = useContractRead({
-    address: storeAddress as `0x${string}`,
-    abi: STORE_ABI,
-    functionName: "getOrders",
-    onSuccess: (data: []) => {
-      setOrders(data.length);
-    },
-  });
-  const { data: _subAmount } = useContractRead({
-    address: addresses[networkId].functions as `0x${string}`,
-    abi: FUNCTIONS_ABI,
-    functionName: "getSubscription",
-    args: [subId],
-    onSuccess: (data: FuncSub) => {
-      const bigNumber = BigNumber.from(data.balance._hex);
-      const stringWith3DecimalPlaces = toEth(bigNumber);
 
-      setSubAmount(stringWith3DecimalPlaces);
-    },
-  });
   useEffect(() => {
-    // eslint-disable-next-line no-underscore-dangle
+    const fetchData = async () => {
+      try {
+        const _store: any = await getStore(address as string);
+        const _subId = await getSubscriptionId(_store as string);
+        const _name: any = await getCompanyName(_store as string);
+        const _functionsBalance: any = await getFunctionsBalance(_subId);
+        const _orders: number = await getStoreOrders(_store as string);
+        const _automationBalance: any = await getAutomationBalance(_store);
 
-    if (!proxy) return;
-    setStoreAddress(proxy.proxy as string);
+        setCompany(_name);
+        setSubId(_subId);
+        setStoreAddress(_store);
+        setSubAmount(_functionsBalance);
+        setOrders(_orders);
+        setAutomationAmount(_automationBalance);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchData();
   }, [address]);
+
   return (
     <>
-      <Container maxW={"max"}>
+      <Container maxW={"max"} paddingBottom={"100px"}>
         <Heading size="lg">{company} Dashboard</Heading>
         <Divider />
-        <br />
-        <Stats orders={orders} autoBalance={"1"} funcBalance={subAmount} />
+        {isLoading ? (
+          <Center marginTop={"20"} paddingBottom={"10"}>
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="blue.200"
+              color="blue.500"
+              size="xl"
+            />
+          </Center>
+        ) : (
+          <Stats
+            orders={orders}
+            autoBalance={automationAmount}
+            funcBalance={subAmount}
+          />
+        )}
         <CardGrid />
       </Container>
     </>

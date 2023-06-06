@@ -77,7 +77,7 @@ export default function GridListWith() {
             heading={"Blockchain Verified"}
             icon={<Icon as={FcAssistant} w={10} h={10} />}
             description={
-              "Find out all of the most up to date information from locals who live there."
+              "Secure user experience with blockchain verified transactions."
             }
             href={"#"}
           />
@@ -85,30 +85,14 @@ export default function GridListWith() {
             heading={"Powered By Chainlink"}
             icon={<Icon as={FcCollaboration} w={10} h={10} />}
             description={
-              "Lorem ipsum dolor sit amet catetur, adipisicing elit."
+              "Oracles are the bridge between the real world and the blockchain."
             }
             href={"#"}
           />
           <Card
             heading={"Earn Yield"}
             icon={<Icon as={FcDonate} w={10} h={10} />}
-            description={"Get paid to train AI models about your local area."}
-            href={"#"}
-          />
-          <Card
-            heading={"Something"}
-            icon={<Icon as={FcManager} w={10} h={10} />}
-            description={
-              "Lorem ipsum dolor sit amet catetur, adipisicing elit."
-            }
-            href={"#"}
-          />
-          <Card
-            heading={"Dashboard"}
-            icon={<Icon as={FcAbout} w={10} h={10} />}
-            description={
-              "Lorem ipsum dolor sit amet catetur, adipisicing elit."
-            }
+            description={"Earn yield on your lockd revinue."}
             href={"#"}
           />
         </Flex>

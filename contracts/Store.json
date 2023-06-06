@@ -158,6 +158,19 @@
   },
   {
     "inputs": [],
+    "name": "automationBalance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "claimable",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "getAutomationInterval",
     "outputs": [
       {
@@ -355,6 +368,19 @@
   },
   {
     "inputs": [],
+    "name": "getUpkeepId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "getWhitelistedTokens",
     "outputs": [
       {
@@ -429,60 +455,6 @@
     "name": "initialize",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "orderList",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "Id",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "string",
-        "name": "trackingNumber",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "company",
-        "type": "string"
-      },
-      {
-        "internalType": "enum IStore.Status",
-        "name": "status",
-        "type": "uint8"
-      },
-      {
-        "internalType": "uint256",
-        "name": "lastUpdate",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "active",
-        "type": "bool"
-      },
-      {
-        "internalType": "uint256",
-        "name": "lastAutomationCheck",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "value",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -573,6 +545,19 @@
       }
     ],
     "name": "setSubscriptionId",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "setUpkeepId",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

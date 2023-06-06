@@ -69,7 +69,7 @@ export const NavBar: FC = () => {
 
   return (
     <>
-      <Box bg={"f5f7fd"} px={4}>
+      <Box bg={"#ffffff"} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}

@@ -13,13 +13,8 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useNetwork,
-  useAccount,
-  useProvider,
-} from "wagmi";
+import { useNetwork, useAccount, useProvider } from "wagmi";
+import { updatOrder } from "../../utils";
 
 interface StoreModalProps {
   id: string;
@@ -32,17 +27,6 @@ export const StoreModal: FC<StoreModalProps> = ({ id, storeAddress }) => {
   const [tracking, setTracking] = useState("");
   const { address } = useAccount();
   const { chain } = useNetwork();
-  const networkId = (chain?.id as number) || 80001;
-  const provider = useProvider();
-  const STORE_ABI = require("../../contracts/Store.json");
-
-  const { config } = usePrepareContractWrite({
-    address: storeAddress as `0x${string}`,
-    abi: STORE_ABI,
-    functionName: "updateOrder",
-    args: [id, shippingCompany, tracking],
-  });
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
   const handleUpdate = async () => {};
 
@@ -75,10 +59,8 @@ export const StoreModal: FC<StoreModalProps> = ({ id, storeAddress }) => {
           <ModalFooter>
             <Button
               variant="blue"
-              onClick={() => {
-                console.log(shippingCompany);
-                write?.();
-                handleUpdate();
+              onClick={async () => {
+                await updatOrder(storeAddress, id, shippingCompany, tracking);
                 onClose();
               }}
             >

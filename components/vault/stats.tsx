@@ -11,7 +11,7 @@ import {
   Container,
   Spacer,
 } from "@chakra-ui/react";
-import { gasTokens } from "../../utils";
+import { gasTokens, withdrawGasTokenFromVault } from "../../utils";
 import { VaultCard } from "./card";
 
 interface StatProps {
@@ -19,6 +19,7 @@ interface StatProps {
   withdrawGasToken: string;
   lockedGasToken: string;
   yieldAmount: string;
+  storeAddress: string;
 }
 
 export const Stats: FC<StatProps> = ({
@@ -26,16 +27,18 @@ export const Stats: FC<StatProps> = ({
   withdrawGasToken,
   lockedGasToken,
   yieldAmount,
+  storeAddress,
 }) => {
   const gasToken = gasTokens[networkId];
   return (
-    <Container maxW={"5xl"}>
+    <Container maxW={"5xl"} paddingBottom={"100"}>
       <Flex>
         <VaultCard
           name="Total Locked"
           gasToken={gasToken}
           total={lockedGasToken}
           buttonAction=""
+          action={async () => {}}
         />
         <Spacer />
         <VaultCard
@@ -43,6 +46,8 @@ export const Stats: FC<StatProps> = ({
           gasToken={gasToken}
           total={withdrawGasToken}
           buttonAction="Withdraw"
+          action={withdrawGasTokenFromVault}
+          storeAddress={storeAddress}
         />
         <Spacer />
         <VaultCard
@@ -50,6 +55,7 @@ export const Stats: FC<StatProps> = ({
           gasToken={gasToken}
           total={yieldAmount}
           buttonAction=""
+          action={async () => {}}
         />
       </Flex>
     </Container>

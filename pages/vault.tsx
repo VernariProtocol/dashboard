@@ -13,105 +13,71 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Divider,
+  Center,
+  Spinner,
+  useToast,
 } from "@chakra-ui/react";
-import { addresses, toEth } from "../utils";
+import {
+  getLockedGasTokenAmount,
+  getStore,
+  getWithdrawableGasTokenAmount,
+  getYield,
+} from "../utils";
 import { BigNumber } from "ethers";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
-interface ethRes {
-  _hex: string;
-  _isBigNumber: boolean;
-}
-
 const Vault: NextPage = () => {
   const [storeAddress, setStoreAddress] = useState("");
-  const [factoryAddress, setFactoryAddress] = useState("");
-  const [vaultAddress, setVaultAddress] = useState("");
   const [networkId, setNetworkId] = useState(1);
   const [withdrawGasTokenAmount, setWithdrawGasTokenAmount] = useState("0");
-  const [lockedasTokenAmount, setLockedGasTokenAmount] = useState("0");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [lockedGasTokenAmount, setLockedGasTokenAmount] = useState("0");
   const [yieldAmount, setYieldAmount] = useState("0");
-  const STORE_ABI = require("../contracts/Store.json");
-  const FACTORY_ABI = require("../contracts/Factory.json");
-  const VAULT_ABI = require("../contracts/Vault.json");
+  const [error, setError] = useState<string | null>(null);
+  const toast = useToast();
 
   const { address } = useAccount();
   const { chain } = useNetwork();
 
   useEffect(() => {
-    const networkId = (chain?.id as number) || 1;
-    const _factoryAddress = addresses[networkId].factory as string;
-    const _vaultAddress = addresses[networkId].vault as string;
-    setFactoryAddress(_factoryAddress);
-    setVaultAddress(_vaultAddress);
-  }, [chain]);
+    const fetchData = async () => {
+      try {
+        const _store: any = await getStore(address as string);
+        const _gasTokenAmount: any = await getWithdrawableGasTokenAmount(
+          _store as string
+        );
+        const _lockedGasTokenAmount: any = await getLockedGasTokenAmount(
+          _store as string
+        );
+        // const _yieldAmount: any = await getYield(_store);
 
-  useEffect(() => {
-    const networkId = (chain?.id as number) || 1;
-    setNetworkId(networkId);
-  }, [chain]);
+        setStoreAddress(_store);
+        setWithdrawGasTokenAmount(_gasTokenAmount);
+        setLockedGasTokenAmount(_lockedGasTokenAmount);
+        // setYieldAmount(_yieldAmount);
+        setIsLoading(false);
+      } catch (error: any) {
+        setError(error.message);
+      }
+    };
 
-  const factoryContract = {
-    address: factoryAddress as `0x${string}`,
-    abi: FACTORY_ABI,
-  };
-  const storeContract = {
-    address: storeAddress as `0x${string}`,
-    abi: STORE_ABI,
-  };
-
-  const { data: proxy } = useContractRead({
-    address: factoryAddress as `0x${string}`,
-    abi: FACTORY_ABI,
-    functionName: "instances",
-    args: [address],
-  });
-
-  useEffect(() => {
-    // eslint-disable-next-line no-underscore-dangle
-
-    if (!proxy) return;
-    setStoreAddress(proxy.proxy as string);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchData();
   }, [address]);
 
-  useContractRead({
-    address: storeAddress as `0x${string}`,
-    abi: STORE_ABI,
-    functionName: "getWithdrawableGasTokenAmount",
-    onSuccess: (data: ethRes) => {
-      const bigNumber = BigNumber.from(data._hex);
-      setWithdrawGasTokenAmount(toEth(bigNumber));
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
-  useContractRead({
-    address: storeAddress as `0x${string}`,
-    abi: STORE_ABI,
-    functionName: "getLockedGasTokenAmount",
-    onSuccess: (data: ethRes) => {
-      const bigNumber = BigNumber.from(data._hex);
-      setLockedGasTokenAmount(toEth(bigNumber));
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
-  useContractRead({
-    address: vaultAddress as `0x${string}`,
-    abi: VAULT_ABI,
-    functionName: "getYield",
-    onSuccess: (data: ethRes) => {
-      const bigNumber = BigNumber.from(data._hex);
-      setYieldAmount(toEth(bigNumber));
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+  useEffect(() => {
+    if (error != null) {
+      toast({
+        title: "Error.",
+        description: error,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+    }
+    setError(null);
+  }, [error, toast]);
+
   return (
     <Layout title="Vernari Protocol">
       <Breadcrumb
@@ -127,12 +93,25 @@ const Vault: NextPage = () => {
         </BreadcrumbItem>
       </Breadcrumb>
       <Divider />
-      <Stats
-        networkId={networkId}
-        withdrawGasToken={withdrawGasTokenAmount}
-        lockedGasToken={lockedasTokenAmount}
-        yieldAmount={yieldAmount}
-      />
+      {isLoading ? (
+        <Center marginTop={"20"} paddingBottom={"200"}>
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="blue.200"
+            color="blue.500"
+            size="xl"
+          />
+        </Center>
+      ) : (
+        <Stats
+          networkId={networkId}
+          withdrawGasToken={withdrawGasTokenAmount}
+          lockedGasToken={lockedGasTokenAmount}
+          yieldAmount={yieldAmount}
+          storeAddress={storeAddress}
+        />
+      )}
     </Layout>
   );
 };

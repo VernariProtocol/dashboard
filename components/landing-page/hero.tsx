@@ -10,8 +10,17 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { ConnectButton } from "../connect-button";
+import { FC } from "react";
+import { CreateStoreModal } from "../modals/create-store-modal";
 
-export default function Hero() {
+import { useAccount } from "wagmi";
+
+interface HeroProps {
+  createStore: boolean;
+}
+
+export const Hero: FC<HeroProps> = ({ createStore }) => {
+  const { address } = useAccount();
   return (
     <Container maxW={"5xl"}>
       <Flex justifyContent={"center"}>
@@ -43,15 +52,19 @@ export default function Hero() {
           blockchain.
         </Text>
         <Stack spacing={6} direction={"row"}>
-          <ConnectButton>Connect Wallet</ConnectButton>
-          <Button rounded={"full"} px={6}>
-            Learn more
-          </Button>
+          {!address ? <ConnectButton>Connect Wallet</ConnectButton> : null}
+          {!createStore ? (
+            <Button rounded={"full"} px={6}>
+              Learn more
+            </Button>
+          ) : (
+            <CreateStoreModal />
+          )}
         </Stack>
       </Stack>
     </Container>
   );
-}
+};
 
 export const Illustration = (props: IconProps) => {
   return (

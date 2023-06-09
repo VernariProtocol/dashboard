@@ -146,6 +146,35 @@ export async function withdrawGasTokenFromVault(
   }
 }
 
+export const createStore = async (
+  address: string,
+  name: string,
+  subId: number,
+  internval: number,
+  networkId: number
+) => {
+  try {
+    const paramsConfig = {
+      address: addresses[networkId].factory as `0x${string}`,
+      abi: FACTORY_ABI,
+      functionName: "createStore",
+      args: [address, name, subId, internval],
+    };
+    const config = await prepareWriteContract(paramsConfig);
+    const data = await writeContract(config);
+    // isOpenCallback();
+    // loadingCallback(true);
+    // progressCallback(30);
+    const isSuccess = await data.wait().then((receipt) => receipt.status === 1);
+    if (!isSuccess) throw new Error("Transaction failed");
+    // progressCallback(80);
+    await sleep(2000);
+    // loadingCallback(false);
+  } catch (error: any) {
+    throw new Error(`Error creating store: ${error.message}`);
+  }
+};
+
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

@@ -10,8 +10,14 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { ConnectButton } from "../connect-button";
+import { FC } from "react";
+import { CreateStoreModal } from "../modals/create-store-modal";
 
-export default function Hero() {
+interface HeroProps {
+  createStore: boolean;
+}
+
+export const Hero: FC<HeroProps> = ({ createStore }) => {
   return (
     <Container maxW={"5xl"}>
       <Flex justifyContent={"center"}>
@@ -44,14 +50,18 @@ export default function Hero() {
         </Text>
         <Stack spacing={6} direction={"row"}>
           <ConnectButton>Connect Wallet</ConnectButton>
-          <Button rounded={"full"} px={6}>
-            Learn more
-          </Button>
+          {!createStore ? (
+            <Button rounded={"full"} px={6}>
+              Learn more
+            </Button>
+          ) : (
+            <CreateStoreModal>Create Store</CreateStoreModal>
+          )}
         </Stack>
       </Stack>
     </Container>
   );
-}
+};
 
 export const Illustration = (props: IconProps) => {
   return (

@@ -13,11 +13,14 @@ import { ConnectButton } from "../connect-button";
 import { FC } from "react";
 import { CreateStoreModal } from "../modals/create-store-modal";
 
+import { useAccount } from "wagmi";
+
 interface HeroProps {
   createStore: boolean;
 }
 
 export const Hero: FC<HeroProps> = ({ createStore }) => {
+  const { address } = useAccount();
   return (
     <Container maxW={"5xl"}>
       <Flex justifyContent={"center"}>
@@ -49,13 +52,13 @@ export const Hero: FC<HeroProps> = ({ createStore }) => {
           blockchain.
         </Text>
         <Stack spacing={6} direction={"row"}>
-          <ConnectButton>Connect Wallet</ConnectButton>
+          {!address ? <ConnectButton>Connect Wallet</ConnectButton> : null}
           {!createStore ? (
             <Button rounded={"full"} px={6}>
               Learn more
             </Button>
           ) : (
-            <CreateStoreModal>Create Store</CreateStoreModal>
+            <CreateStoreModal />
           )}
         </Stack>
       </Stack>
